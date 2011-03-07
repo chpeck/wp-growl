@@ -24,12 +24,7 @@
  */
 
 function buzzgrowl_menu() {
-	add_options_page('BuzzGrowl Options', 'BuzzGrowl Plugin', 'manage_options', 'buzzgrowl', 'buzzgrowl_options');
-	add_action('admin_init', 'buzzgrowl_settings');
-}
-
-function buzzgrowl_settings() {
-	register_setting('buzzgrowl-settings-group', 'token');
+	add_submenu_page('plugins.php', 'BuzzGrowl Configuration', 'BuzzGrowl Configuration', 'manage_options', 'buzzgrowl-key-config', 'buzzgrowl_options');
 }
 
 function buzzgrowl_init() {
@@ -39,7 +34,7 @@ function buzzgrowl_init() {
 
 function buzzgrowl_footer() {
 	wp_print_scripts('buzzgrowl');
-	$token = get_option('token');
+	$token = get_option('buzzgrowl_token');
 	if (empty($token)) {
 		echo '<script>new TBZZ.Growl();</script>';
 	} else {
@@ -51,18 +46,23 @@ function buzzgrowl_options() {
 	if (!current_user_can('manage_options'))  {
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	}
+
+	if(isset($_POST['submit'])) {
+		update_option('buzzgrowl_token', $_POST['token']);
+		
+	}
 ?>
 <div class="wrap">
-<h2>BuzzGrowl for Websites</h2>
-<form method="post" action="options.php">
-	<?php settings_fields('buzzgrowl-settings-group'); ?>
+<h2>BuzzGrowl Configuration</h2>
+<form method="post" action="">
 	<label>Token</label>	
-	<input type="text" name="token" value="<?php echo get_option('token'); ?>"
+	<input type="text" name="token" value="<?php echo get_option('buzzgrowl_token'); ?>"
 	<br/>
     	<p class="submit">
-    	<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+    	<input type="submit" name="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
     	</p>
 </form>
+</div>
 <?php
 }
 
