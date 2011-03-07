@@ -23,6 +23,15 @@
  * 
  */
 
+function buzzgrowl_menu() {
+	add_options_page('BuzzGrowl Options', 'BuzzGrowl Plugin', 'manage_options', 'buzzgrowl', 'buzzgrowl_options');
+	add_action('admin_init', 'buzzgrowl_settings');
+}
+
+function buzzgrowl_settings() {
+	register_setting('buzzgrowl-settings-group', 'token');
+}
+
 function buzzgrowl_init() {
 	wp_deregister_script('buzzgrowl');
 	wp_register_script('buzzgrowl', 'http://buzzgrowl.com/embed/buzz.js');
@@ -30,24 +39,33 @@ function buzzgrowl_init() {
 
 function buzzgrowl_footer() {
 	wp_print_scripts('buzzgrowl');
-	echo '<script>TBZZ.Growl();</script>';
-}
-
-function buzzgrowl_menu() {
-	add_options_page('BuzzGrowl Options', 'BuzzGrowl Plugin', 'manage_options', 'buzzgrowl', 'buzzgrowl_options');
+	$token = get_option('token');
+	if (empty($token)) {
+		echo '<script>new TBZZ.Growl();</script>';
+	} else {
+		echo '<script>new TBZZ.Growl({token:\''.$token.'\'});</script>';
+	}	
 }
 
 function buzzgrowl_options() {
 	if (!current_user_can('manage_options'))  {
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	}
-	echo '<div class="wrap">';
-	echo '<h2>BuzzGrowl for Websites</h2>';
-	echo '<label>Token</label><input type="text"/>';
-	echo '</div>';
+?>
+<div class="wrap">
+<h2>BuzzGrowl for Websites</h2>
+<form method="post" action="options.php">
+	<?php settings_fields('buzzgrowl-settings-group'); ?>
+	<label>Token</label>	
+	<input type="text" name="token" value="<?php echo get_option('token'); ?>"
+	<br/>
+    	<p class="submit">
+    	<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+    	</p>
+</form>
+<?php
 }
 
-add_action('admin_init', 'register_buzzgrowl_settings');
 add_action('admin_menu', 'buzzgrowl_menu');
 add_action('init', 'buzzgrowl_init');
 add_action('wp_footer', 'buzzgrowl_footer');
