@@ -28,12 +28,11 @@ function buzzgrowl_menu() {
 }
 
 function buzzgrowl_init() {
-	wp_deregister_script('buzzgrowl');
-	wp_register_script('buzzgrowl', 'http://buzzgrowl.com/embed/buzz.js');
+  wp_register_script('buzzgrowl', 'http://buzzgrowl.com/embed/buzz.js');
+  wp_enqueue_script('buzzgrowl');
 }
 
 function buzzgrowl_footer() {
-	wp_print_scripts('buzzgrowl');
 	$token = get_option('buzzgrowl_token');
 	if (empty($token)) {
 		echo '<script>new TBZZ.Growl();</script>';
@@ -54,14 +53,19 @@ function buzzgrowl_options() {
 ?>
 <div class="wrap">
 <h2>BuzzGrowl Configuration</h2>
+<div class="narrow">
+<p>BuzzGrowl is installed and working!</p> 
+<p>For more control and options, please visit <a href="http://buzzgrowl.com">BuzzGrowl</a> for your premium token.</p>
 <form method="post" action="">
-	<label>Token</label>	
-	<input type="text" name="token" value="<?php echo get_option('buzzgrowl_token'); ?>"
-	<br/>
-    	<p class="submit">
-    	<input type="submit" name="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-    	</p>
+<h3><label for="token">BuzzGrowl Premium Token</label></h3>
+<p style="padding: .5em; background-color: #aa0; color: #fff; font-weight: bold; width: 388px">Please enter your token. (<a href="http://buzzgrowl.com/" style="color:#fff">Get your token.</a>)</p>	
+<input style="font-family: 'Courier New', Courier, mono; font-size: 1.5em;" type="text" id="token" name="token" value="<?php echo get_option('buzzgrowl_token'); ?>">(<a href="http://buzzgrowl.com/">What is this?</a>)
+<br/>
+<p class="submit">
+<input type="submit" name="submit" value="<?php _e('Update') ?>" />
+</p>
 </form>
+</div>
 </div>
 <?php
 }
