@@ -11,11 +11,12 @@ Show social media posts about your website on your website.
 
 Show social media posts about your website on your website.
 
+* Show what your readers are saying on twitter and facebook
 * Get new visitors through increased social sharing
 * Increase page views
 * Easy to install, no coding or design
-* Filter your social content
-* Customize look & feel
+* Filter your social content (Premium)
+* Customize look & feel (Premium)
 
 > A premium answer to driving social media engagement. If you run a blog, you’ll love it. - TheNextWeb
 
