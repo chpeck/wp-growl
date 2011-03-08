@@ -47,8 +47,10 @@ function buzzgrowl_options() {
 	}
 
 	if(isset($_POST['submit'])) {
-		update_option('buzzgrowl_token', $_POST['token']);
-		
+    update_option('buzzgrowl_token', $_POST['token']);
+?>
+    <div id="message" class="updated fade"><p><strong><?php _e('Token saved.') ?></strong></p></div>
+<?php
 	}
 ?>
 <div class="wrap">
