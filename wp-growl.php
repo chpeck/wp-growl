@@ -56,12 +56,12 @@ function buzzgrowl_options() {
 <div class="wrap">
 <h2>BuzzGrowl Configuration</h2>
 <div class="narrow">
-<p>BuzzGrowl is installed and working!</p> 
+<p>BuzzGrowl <?= get_option('buzzgrowl_token') ? 'Premium' : 'Free' ?> is installed and working!</p> 
 <p>For more control and options, please visit <a href="http://buzzgrowl.com">BuzzGrowl</a> for your premium token.</p>
 <form method="post" action="">
 <h3><label for="token">BuzzGrowl Premium Token</label></h3>
 <p style="padding: .5em; background-color: #aa0; color: #fff; font-weight: bold; width: 388px">Please enter your token. (<a href="http://buzzgrowl.com/" style="color:#fff">Get your token.</a>)</p>	
-<input style="font-family: 'Courier New', Courier, mono; font-size: 1.5em;" type="text" id="token" name="token" value="<?php echo get_option('buzzgrowl_token'); ?>">(<a href="http://buzzgrowl.com/">What is this?</a>)
+<input style="font-family: 'Courier New', Courier, mono; font-size: 1.5em;" type="text" id="token" name="token" value="<?php echo get_option('buzzgrowl_token'); ?>"> (<a href="http://buzzgrowl.com/">What is this?</a>)
 <br/>
 <p class="submit">
 <input type="submit" name="submit" value="<?php _e('Update') ?>" />
