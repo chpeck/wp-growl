@@ -2,7 +2,7 @@
 /*
  * Plugin Name: BuzzGrowl for Websites
  * Plugin URI: http://buzzgrowl.com/
- * Description: Show social media post about your website on your website.
+ * Description: Show social media post about your website on your website. <a href="plugins.php?page=buzzgrowl-key-config">Configure BuzzGrowl Premium</a>.
  * Version: 1.0
  * Author: Thingbuzz
  * Author URI: http://buzzgrowl.com
@@ -57,7 +57,9 @@ function buzzgrowl_options() {
 <h2>BuzzGrowl Configuration</h2>
 <div class="narrow">
 <p>BuzzGrowl <?= get_option('buzzgrowl_token') ? 'Premium' : 'Free' ?> is installed and working!</p> 
+<?php if(!get_option('buzzgrowl_token')) { ?>
 <p>For more control and options, please visit <a href="http://buzzgrowl.com">BuzzGrowl</a> for your premium token.</p>
+<?php } ?>
 <form method="post" action="">
 <h3><label for="token">BuzzGrowl Premium Token</label></h3>
 <p style="padding: .5em; background-color: #aa0; color: #fff; font-weight: bold; width: 388px">Please enter your token. (<a href="http://buzzgrowl.com/" style="color:#fff">Get your token.</a>)</p>	
@@ -68,10 +70,19 @@ function buzzgrowl_options() {
 </p>
 </form>
 </div>
+<iframe src="http://player.vimeo.com/video/17719340?title=0&amp;byline=0&amp;portrait=0&amp;" width="400" height="225" frameborder="0"></iframe>
 </div>
 <?php
 }
 
+function buzzgrowl_plugin_action_links( $links, $file ) {
+  if ( $file == plugin_basename( dirname(__FILE__).'/wp-growl.php' ) ) {
+    $links[] = '<a href="plugins.php?page=buzzgrowl-key-config">'.__('Settings').'</a>';
+  }
+  return $links;
+}
+
+add_filter('plugin_action_links', 'buzzgrowl_plugin_action_links', 10, 2);
 add_action('admin_menu', 'buzzgrowl_menu');
 add_action('init', 'buzzgrowl_init');
 add_action('wp_footer', 'buzzgrowl_footer');
