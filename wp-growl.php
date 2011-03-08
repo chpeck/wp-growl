@@ -2,7 +2,7 @@
 /*
  * Plugin Name: BuzzGrowl for Websites
  * Plugin URI: http://buzzgrowl.com/
- * Description: Show social media post about your website on your website. <a href="plugins.php?page=buzzgrowl-key-config">Configure BuzzGrowl Premium</a>.
+ * Description: Show social media posts about your website on your website. <a href="plugins.php?page=buzzgrowl-key-config">Configure BuzzGrowl Premium</a>.
  * Version: 1.0
  * Author: Thingbuzz
  * Author URI: http://buzzgrowl.com
